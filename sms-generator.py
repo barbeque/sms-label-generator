@@ -9,8 +9,8 @@ STICKER_HEIGHT_INCHES = 0.787 # as per https://www.deviantart.com/borracho2x/art
 GRID_SQUARES_X = 32
 GRID_SQUARES_Y = 7
 
-SEGA_LOGO_FONT = 'SEGA LOGO FONT' # from https://www.dafont.com/sega.font
-LABEL_FONT = 'Microsoft Himalaya' # from https://gettyfonts.net/font/himalaya/download
+SEGA_LOGO_FONT = 'SEGA' # from https://www.dafont.com/sega.font
+LABEL_FONT = 'himalaya' # from https://gettyfonts.net/font/himalaya/download
 
 GRID_LINE_THICKNESS = 10 # in pixels
 
@@ -37,9 +37,17 @@ for y in range(1, GRID_SQUARES_Y):
     grid_span_y = im.height / GRID_SQUARES_Y
     draw.line((0, y * grid_span_y, im.width, y * grid_span_y), fill=SMS_LOGO_BLACK, width=GRID_LINE_THICKNESS)
 
-# TODO: sega logo
+# width is still a little off
+sega_font = ImageFont.truetype(SEGA_LOGO_FONT, int(height_pixels * (1.85/GRID_SQUARES_Y)))
+sega_font_y = height_pixels - (height_pixels * (2.8/GRID_SQUARES_Y))
+sega_font_x = width_pixels - (width_pixels * (6.0/GRID_SQUARES_X))
+draw.text((sega_font_x, sega_font_y), "SEGA", SMS_LOGO_WHITE, font=sega_font)
 
-# TODO: label text
+# label text
+label_font = ImageFont.truetype(LABEL_FONT, int(height_pixels * (4.50/GRID_SQUARES_Y)))
+label_font_x = int(width_pixels * (1.95/GRID_SQUARES_X))
+label_font_y = int(height_pixels - (height_pixels * (4.50/GRID_SQUARES_Y)))
+draw.text((label_font_x, label_font_y), label, SMS_LOGO_WHITE, font=label_font)
 
 # Save the resulting image
 im.save('output.png')
